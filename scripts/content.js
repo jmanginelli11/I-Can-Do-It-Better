@@ -13,7 +13,7 @@ function filterAvailableClasses(articles) {
     }
   });
 
-  const badge = document.createElement("p");
+  const badge = document.createElement("h2");
   badge.classList.add("color-secondary-text", "type--caption");
   badge.textContent = `🐒 Filtered Available Classes`;
 
@@ -24,22 +24,22 @@ function filterAvailableClasses(articles) {
 
 filterAvailableClasses(document.querySelectorAll("article"));
 
-// const observer = new MutationObserver((mutations) => {
-//   for (const mutation of mutations) {
-//     // If a new article was added.
-//     for (const node of mutation.addedNodes) {
-//       if (node instanceof Element && node.tagName === "ARTICLE") {
-//         // Render the reading time for this particular article.
-//         renderReadingTime(node);
-//       }
-//     }
-//   }
-// });
+const observer = new MutationObserver((mutations) => {
+  for (const mutation of mutations) {
+    // If a new article was added.
+    for (const node of mutation.addedNodes) {
+      let articles = [];
+      articles.push(node);
+      // Render the reading time for this particular article.
+      filterAvailableClasses(articles);
+    }
+  }
+});
 
 // https://developer.chrome.com/ is a SPA (Single Page Application) so can
 // update the address bar and render new content without reloading. Our content
 // script won't be reinjected when this happens, so we need to watch for
 // changes to the content.
-// observer.observe(document.querySelector("devsite-content"), {
-//   childList: true,
-// });
+observer.observe(document.querySelector("article"), {
+  childList: true,
+});
