@@ -25,21 +25,30 @@ function filterAvailableClasses(articles) {
 filterAvailableClasses(document.querySelectorAll("article"));
 
 const observer = new MutationObserver((mutations) => {
+  let articles = [];
   for (const mutation of mutations) {
     // If a new article was added.
     for (const node of mutation.addedNodes) {
-      let articles = [];
-      articles.push(node);
-      // Render the reading time for this particular article.
-      filterAvailableClasses(articles);
+      if (node instanceof Element && node.className === "classes__block") {
+        // Render the reading time for this particular article.
+        articles.push(node);
+      }
     }
   }
+  filterAvailableClasses(articles);
 });
 
 // https://developer.chrome.com/ is a SPA (Single Page Application) so can
 // update the address bar and render new content without reloading. Our content
 // script won't be reinjected when this happens, so we need to watch for
 // changes to the content.
-observer.observe(document.querySelector("article"), {
-  childList: true,
-});
+
+observer.observe(
+  document.querySelector(
+    "body > div.site > main > div.content-wrap.classes-wrap"
+  ),
+  {
+    subtree: true,
+    childList: true,
+  }
+);
