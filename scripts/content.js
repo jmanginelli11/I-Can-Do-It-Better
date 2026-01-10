@@ -13,13 +13,15 @@ function filterAvailableClasses(articles) {
     }
   });
 
-  const badge = document.createElement("h2");
-  badge.classList.add("color-secondary-text", "type--caption");
-  badge.textContent = `🐒 Filtered Available Classes`;
+  if (document.querySelector(".color-secondary-text.type--caption") == null) {
+    const badge = document.createElement("h2");
+    badge.classList.add("color-secondary-text", "type--caption");
+    badge.textContent = `🐒 Filtered Available Classes`;
 
-  // Insert the badge after the h1 on the page
-  const heading = document.querySelector("h1");
-  heading.insertAdjacentElement("afterend", badge);
+    // Insert the badge after the h1 on the page
+    const heading = document.querySelector("h1");
+    heading.insertAdjacentElement("afterend", badge);
+  }
 }
 
 filterAvailableClasses(document.querySelectorAll("article"));
