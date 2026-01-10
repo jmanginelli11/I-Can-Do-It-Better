@@ -8,7 +8,11 @@ function filterAvailableClasses(articles) {
       (a) => a.textContent.trim() === "Join Waitlist"
     );
 
-    if (hasJoinWaitlistLink) {
+    const hasClassClosedLink = Array.from(article.querySelectorAll("a")).some(
+      (a) => a.textContent.trim() === "Class Closed"
+    );
+
+    if (hasJoinWaitlistLink || hasClassClosedLink) {
       article.remove();
     }
   });
