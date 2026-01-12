@@ -4,15 +4,11 @@ function filterAvailableClasses(articles) {
   }
 
   articles.forEach((article) => {
-    const hasJoinWaitlistLink = Array.from(article.querySelectorAll("a")).some(
-      (a) => a.textContent.trim() === "Join Waitlist"
+    const hasEnrollNow = Array.from(article.querySelectorAll("a")).some(
+      (a) => a.textContent.trim() === "Enroll Now"
     );
 
-    const hasClassClosedLink = Array.from(article.querySelectorAll("a")).some(
-      (a) => a.textContent.trim() === "Class Closed"
-    );
-
-    if (hasJoinWaitlistLink || hasClassClosedLink) {
+    if (!hasEnrollNow) {
       article.remove();
     }
   });
